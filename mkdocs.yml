@@ -1,6 +1,6 @@
 
 site_name: MkDocs YouTube Tutorial
-# site_url: https://james-willett.github.io/mkdocs-material-youtube-tutorial/
+# docs_dir: ./cours
 
 theme:
   name: material
