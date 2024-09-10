@@ -1,0 +1,52 @@
+name: ci                                      # nom de la tâche d'intégration continue
+on:                                           # événements déclencheurs
+  push:                                       # déclenche sur les pushs
+    branches:                                 # branches ciblées
+      - master
+      - main
+permissions:                                  # permissions d'écriture pour les contenus du repository
+  contents: write
+jobs:                                         # définition des différents travaux (jobs)
+  deploy:
+    runs-on: ubuntu-latest                    # la machine virtuelle utilisée, ici la dernière version d'Ubuntu
+    steps:                                    # étapes à exécuter
+      - uses: actions/checkout@v3             # vérifier le code source
+      - uses: actions/setup-python@v4         # configurer Python
+        with:
+          python-version: 3.x                 # utiliser la version 3.x de Python
+      - uses: actions/cache@v2                # mise en cache
+        with:
+          key: ${{ github.ref }}              # clé basée sur la référence GitHub (ex: branche)
+          path: .cache                        # chemin vers le répertoire de cache
+      - run: pip install mkdocs-material      # installer MkDocs avec le thème Material
+      - run: pip install pillow cairosvg      # installer Pillow et CairoSVG
+      - run: mkdocs gh-deploy --force         # déployer la documentation sur GitHub Pages avec mkdocs
+
+
+
+
+# name: ci                                      # nom de la tâche d'intégration continue
+# on:                                           # événements déclencheurs
+#     push:                                       # déclenche sur les pushs
+#     branches:                                 # branches ciblées
+#         - master
+#         - main
+# permissions:                                  # permissions d'écriture pour les contenus du repository
+#     contents: write
+# jobs:                                         # définition des différents travaux (jobs)
+#     deploy:
+#     runs-on: ubuntu-latest                    # la machine virtuelle utilisée, ici la dernière version d'Ubuntu
+#     steps:                                    # étapes à exécuter
+#         - uses: actions/checkout@v3             # vérifier le code source
+#         - uses: actions/setup-python@v4         # configurer Python
+#         with:
+#             python-version: 3.x                 # utiliser la version 3.x de Python
+#         - uses: actions/cache@v2                # mise en cache
+#         with:
+#             key: ${{ github.ref }}              # clé basée sur la référence GitHub (ex: branche)
+#             path: .cache                        # chemin vers le répertoire de cache
+#         - run: pip install mkdocs-material      # installer MkDocs avec le thème Material
+#         - run: pip install pillow cairosvg      # installer Pillow et CairoSVG
+#         - run: mkdocs gh-deploy --force         # déployer la documentation sur GitHub Pages avec mkdocs
+
+
